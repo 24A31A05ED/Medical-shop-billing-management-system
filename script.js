@@ -1,5 +1,14 @@
+// ====== CURRENCY FORMATTER (INDIA) ======
+// This ensures correct formatting: ₹1,00,000.00
+const formatter = new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    minimumFractionDigits: 2
+});
+
 // ====== DATA STORE (LocalStorage) ======
 const DB = {
+    // Fixed: Changed '₹' back to '$' for valid JavaScript syntax
     get: (key) => JSON.parse(localStorage.getItem(`medicore_${key}`)) || null,
     set: (key, value) => localStorage.setItem(`medicore_${key}`, JSON.stringify(value)),
     remove: (key) => localStorage.removeItem(`medicore_${key}`)
@@ -15,12 +24,12 @@ function initApp() {
 
     if (!DB.get('medicines')) {
         DB.set('medicines', [
-            { id: 1, name: "Paracetamol 500mg", type: "tablet", price: 5.99, stock: 450, manufacturer: "PharmaCorp Inc.", description: "Paracetamol is a widely used analgesic and antipyretic medication.", usage: "Take 1-2 tablets every 4-6 hours.", whenToUse: "Used for headaches, fever reduction.", sideEffects: "Rare when taken at recommended doses.", precautions: "Do not use with other products containing paracetamol." },
-            { id: 2, name: "Amoxicillin 250mg", type: "capsule", price: 12.50, stock: 180, manufacturer: "MediHealth Labs", description: "Amoxicillin is a penicillin antibiotic.", usage: "Take one capsule three times daily.", whenToUse: "Bacterial infections.", sideEffects: "Nausea, diarrhea, rash.", precautions: "Inform doctor of any penicillin allergies." },
-            { id: 3, name: "Cough Syrup DX", type: "syrup", price: 8.75, stock: 95, manufacturer: "HealthFirst Pharma", description: "A soothing cough syrup.", usage: "Adults: 10ml every 4-6 hours.", whenToUse: "Dry, hacking coughs.", sideEffects: "Drowsiness, dizziness.", precautions: "Not for children under 6." },
-            { id: 4, name: "Insulin Glargine", type: "injection", price: 89.99, stock: 42, manufacturer: "Diabeticare Corp", description: "Long-acting insulin analog.", usage: "Inject subcutaneously once daily.", whenToUse: "Type 1 and Type 2 diabetes.", sideEffects: "Hypoglycemia, weight gain.", precautions: "Monitor blood sugar regularly." },
-            { id: 5, name: "Ibuprofen 400mg", type: "tablet", price: 7.49, stock: 380, manufacturer: "PainRelief Pharma", description: "NSAID for pain and inflammation.", usage: "Take 1 tablet every 4-6 hours.", whenToUse: "Headaches, dental pain, muscle aches.", sideEffects: "Stomach upset, heartburn.", precautions: "Avoid if you have stomach ulcers." },
-            { id: 6, name: "Vitamin D3 1000IU", type: "tablet", price: 12.99, stock: 520, manufacturer: "NutriWell Labs", description: "Essential vitamin supplement.", usage: "Take one tablet daily with a meal.", whenToUse: "Vitamin D deficiency.", sideEffects: "Generally well tolerated.", precautions: "Consult doctor if you have kidney disease." }
+            { id: 1, name: "Paracetamol 500mg", type: "tablet", price: 55.00, stock: 450, manufacturer: "PharmaCorp Inc.", description: "Paracetamol is a widely used analgesic and antipyretic medication.", usage: "Take 1-2 tablets every 4-6 hours.", whenToUse: "Used for headaches, fever reduction.", sideEffects: "Rare when taken at recommended doses.", precautions: "Do not use with other products containing paracetamol." },
+            { id: 2, name: "Amoxicillin 250mg", type: "capsule", price: 120.50, stock: 180, manufacturer: "MediHealth Labs", description: "Amoxicillin is a penicillin antibiotic.", usage: "Take one capsule three times daily.", whenToUse: "Bacterial infections.", sideEffects: "Nausea, diarrhea, rash.", precautions: "Inform doctor of any penicillin allergies." },
+            { id: 3, name: "Cough Syrup DX", type: "syrup", price: 85.75, stock: 95, manufacturer: "HealthFirst Pharma", description: "A soothing cough syrup.", usage: "Adults: 10ml every 4-6 hours.", whenToUse: "Dry, hacking coughs.", sideEffects: "Drowsiness, dizziness.", precautions: "Not for children under 6." },
+            { id: 4, name: "Insulin Glargine", type: "injection", price: 890.99, stock: 42, manufacturer: "Diabeticare Corp", description: "Long-acting insulin analog.", usage: "Inject subcutaneously once daily.", whenToUse: "Type 1 and Type 2 diabetes.", sideEffects: "Hypoglycemia, weight gain.", precautions: "Monitor blood sugar regularly." },
+            { id: 5, name: "Ibuprofen 400mg", type: "tablet", price: 72.49, stock: 380, manufacturer: "PainRelief Pharma", description: "NSAID for pain and inflammation.", usage: "Take 1 tablet every 4-6 hours.", whenToUse: "Headaches, dental pain, muscle aches.", sideEffects: "Stomach upset, heartburn.", precautions: "Avoid if you have stomach ulcers." },
+            { id: 6, name: "Vitamin D3 1000IU", type: "tablet", price: 125.00, stock: 520, manufacturer: "NutriWell Labs", description: "Essential vitamin supplement.", usage: "Take one tablet daily with a meal.", whenToUse: "Vitamin D deficiency.", sideEffects: "Generally well tolerated.", precautions: "Consult doctor if you have kidney disease." }
         ]);
     }
 
@@ -176,9 +185,9 @@ function renderDashboardData() {
     const lowStock = medicines.filter(m => m.stock < 50).length;
     const totalRevenue = sales.reduce((sum, s) => sum + s.total, 0);
     
-    document.getElementById('statTotalMeds').textContent = totalMeds.toLocaleString();
+    document.getElementById('statTotalMeds').textContent = totalMeds.toLocaleString('en-IN');
     document.getElementById('statLowStock').textContent = lowStock;
-    document.getElementById('statTotalSales').textContent = '$' + totalRevenue.toFixed(2);
+    document.getElementById('statTotalSales').textContent = formatter.format(totalRevenue);
     document.getElementById('statTransactions').textContent = sales.length;
 
     // Recent Transactions
@@ -188,7 +197,7 @@ function renderDashboardData() {
             <td class="font-medium">${s.invoice}</td>
             <td>${s.customer}</td>
             <td>${s.items.length} items</td>
-            <td class="font-semibold">$${s.total.toFixed(2)}</td>
+            <td class="font-semibold">${formatter.format(s.total)}</td>
             <td class="text-[var(--muted)]">${s.date}</td>
         </tr>
     `).join('') || '<tr><td colspan="5" class="text-center text-[var(--muted)] py-4">No transactions yet</td></tr>';
@@ -250,7 +259,7 @@ function renderInventory(filter = 'all') {
                 <h3 class="font-display font-semibold text-lg mb-2">${med.name}</h3>
                 <p class="text-[var(--muted)] text-sm mb-4">${med.manufacturer}</p>
                 <div class="flex items-center justify-between">
-                    <p class="font-display text-xl font-bold text-emerald-400">$${med.price.toFixed(2)}</p>
+                    <p class="font-display text-xl font-bold text-emerald-400">${formatter.format(med.price)}</p>
                     <p class="text-[var(--muted)]">${med.stock} units</p>
                 </div>
             </div>
@@ -286,7 +295,7 @@ function showMedicineDetails(id) {
     document.getElementById('modalMedicineName').textContent = med.name;
     document.getElementById('modalMedicineType').textContent = med.manufacturer + ' - ' + med.type.charAt(0).toUpperCase() + med.type.slice(1);
     document.getElementById('modalStock').textContent = med.stock + ' units';
-    document.getElementById('modalPrice').textContent = '$' + med.price.toFixed(2);
+    document.getElementById('modalPrice').textContent = formatter.format(med.price);
     document.getElementById('modalDescription').textContent = med.description;
     document.getElementById('modalUsage').textContent = med.usage;
     document.getElementById('modalWhenToUse').textContent = med.whenToUse;
@@ -331,7 +340,7 @@ function initBilling() {
     const medicines = DB.get('medicines');
     const select = document.getElementById('medicineSelect');
     select.innerHTML = '<option value="">Select Medicine</option>' + 
-        medicines.map(m => `<option value="${m.id}">${m.name} - $${m.price.toFixed(2)} (${m.stock} in stock)</option>`).join('');
+        medicines.map(m => `<option value="${m.id}">${m.name} - ${formatter.format(m.price)} (${m.stock} in stock)</option>`).join('');
 }
 
 function addToBill() {
@@ -382,9 +391,9 @@ function renderBillItems() {
     container.innerHTML = currentBillItems.map(item => `
         <tr>
             <td>${item.name}</td>
-            <td>$${item.price.toFixed(2)}</td>
+            <td>${formatter.format(item.price)}</td>
             <td>${item.quantity}</td>
-            <td>$${(item.price * item.quantity).toFixed(2)}</td>
+            <td>${formatter.format(item.price * item.quantity)}</td>
             <td>
                 <button onclick="removeFromBill(${item.id})" class="text-red-400 hover:text-red-300 p-1">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -402,9 +411,9 @@ function calculateTotal() {
     const discount = parseFloat(document.getElementById('discount').value) || 0;
     const total = subtotal + tax - discount;
 
-    document.getElementById('subtotal').textContent = '$' + subtotal.toFixed(2);
-    document.getElementById('tax').textContent = '$' + tax.toFixed(2);
-    document.getElementById('grandTotal').textContent = '$' + total.toFixed(2);
+    document.getElementById('subtotal').textContent = formatter.format(subtotal);
+    document.getElementById('tax').textContent = formatter.format(tax);
+    document.getElementById('grandTotal').textContent = formatter.format(total);
 }
 
 function clearBill() {
@@ -463,7 +472,7 @@ function generateReceipt() {
     DB.set('medicines', medicines);
 
     // Generate QR Data
-    const qrData = `Invoice: ${invoiceNo}|Customer: ${customerName}|Total: $${total.toFixed(2)}`;
+    const qrData = `Invoice: ${invoiceNo}|Customer: ${customerName}|Total: ${formatter.format(total)}`;
 
     const receiptHTML = `
         <div class="text-center mb-4">
@@ -499,22 +508,22 @@ function generateReceipt() {
                 </thead>
                 <tbody>
                     ${currentBillItems.map(item => `
-                        <tr>
-                            <td class="py-2">${item.name}</td>
-                            <td class="text-center py-2">${item.quantity}</td>
-                            <td class="text-right py-2">$${(item.price * item.quantity).toFixed(2)}</td>
-                        </tr>
+                      <tr>
+                        <td class="py-2">${item.name}</td>
+                        <td class="text-center py-2">${item.quantity}</td>
+                        <td class="text-right py-2">${formatter.format(item.price * item.quantity)}</td>
+                    </tr>
                     `).join('')}
                 </tbody>
             </table>
         </div>
 
         <div class="border-t border-gray-200 pt-3 space-y-1">
-            <div class="flex justify-between text-sm"><span>Subtotal:</span><span>$${subtotal.toFixed(2)}</span></div>
-            <div class="flex justify-between text-sm"><span>Tax (8%):</span><span>$${tax.toFixed(2)}</span></div>
-            ${discount > 0 ? `<div class="flex justify-between text-sm text-red-600"><span>Discount:</span><span>-$${discount.toFixed(2)}</span></div>` : ''}
+            <div class="flex justify-between text-sm"><span>Subtotal:</span><span>${formatter.format(subtotal)}</span></div>
+            <div class="flex justify-between text-sm"><span>Tax (8%):</span><span>${formatter.format(tax)}</span></div>
+            ${discount > 0 ? `<div class="flex justify-between text-sm text-red-600"><span>Discount:</span><span>-${formatter.format(discount)}</span></div>` : ''}
             <div class="flex justify-between font-bold text-lg pt-2 border-t border-gray-200">
-                <span>Total:</span><span>$${total.toFixed(2)}</span>
+                <span>Total:</span><span>${formatter.format(total)}</span>
             </div>
         </div>
 
@@ -617,9 +626,9 @@ function renderSalesPage() {
     const avgOrder = totalOrders > 0 ? totalRevenue / totalOrders : 0;
     const uniqueCustomers = [...new Set(sales.map(s => s.customer))].length;
 
-    document.getElementById('revenueTotal').textContent = '$' + totalRevenue.toFixed(2);
+    document.getElementById('revenueTotal').textContent = formatter.format(totalRevenue);
     document.getElementById('totalOrders').textContent = totalOrders;
-    document.getElementById('avgOrder').textContent = '$' + avgOrder.toFixed(2);
+    document.getElementById('avgOrder').textContent = formatter.format(avgOrder);
     document.getElementById('uniqueCustomers').textContent = uniqueCustomers;
 
     const tbody = document.getElementById('salesHistory');
@@ -629,7 +638,7 @@ function renderSalesPage() {
             <td class="font-medium">${s.invoice}</td>
             <td>${s.customer}</td>
             <td>${s.items.length} items</td>
-            <td class="font-semibold">$${s.total.toFixed(2)}</td>
+            <td class="font-semibold">${formatter.format(s.total)}</td>
         </tr>
     `).join('') || '<tr><td colspan="5" class="text-center text-[var(--muted)] py-4">No sales recorded</td></tr>';
 }
