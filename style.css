@@ -1,3 +1,6 @@
+html {
+    font-size: 14px;
+}
 :root {
     --bg: #0a0f14;
     --bg-secondary: #111820;
@@ -61,7 +64,7 @@ body {
     backdrop-filter: blur(20px);
     border: 1px solid var(--border);
     border-radius: 24px;
-    padding: 3rem;
+    padding: 2rem;
     width: 100%;
     max-width: 440px;
     position: relative;
@@ -163,7 +166,7 @@ body {
     left: 0;
     top: 0;
     bottom: 0;
-    width: 280px;
+    width: 240px;
     background: var(--card);
     backdrop-filter: blur(20px);
     border-right: 1px solid var(--border);
@@ -195,8 +198,8 @@ body {
 .sidebar-link.active { background: rgba(16, 185, 129, 0.15); }
 
 .main-content {
-    margin-left: 280px;
-    padding: 2rem;
+    margin-left: 240px;
+    padding: 1.5rem;
     min-height: 100vh;
 }
 
