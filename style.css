@@ -1,5 +1,8 @@
-html {
-    font-size: 14px;
+.sidebar svg,
+button svg,
+.stat-card svg {
+    width: 20px !important;
+    height: 20px !important;
 }
 :root {
     --bg: #0a0f14;
