@@ -26,6 +26,79 @@ body {
 
 .font-display { font-family: 'Outfit', sans-serif; }
 
+/* ================= IMAGE & VIDEO STYLES ================= */
+
+/* Default image */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+}
+
+/* Uploaded images */
+.upload-img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+
+/* Video preview */
+.upload-video {
+    width: 220px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+
+/* Card images */
+.card-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* Profile image */
+.profile-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border);
+}
+
+/* Table images */
+.table-img {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Banner images */
+.banner-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+/* ================= SIGN-IN ARROW (SMALL SIZE) ================= */
+
+.signin-arrow {
+    font-size: 14px;   /* decreased size */
+    margin-left: 6px;
+    transition: transform 0.3s ease;
+}
+
+.btn-primary:hover .signin-arrow {
+    transform: translateX(3px);
+}
+
 /* Background Effects */
 .bg-pattern {
     position: fixed;
@@ -48,7 +121,7 @@ body {
     z-index: 0;
 }
 
-/* Auth Pages (Login/Signup) */
+/* Auth Pages */
 .auth-container {
     min-height: 100vh;
     display: flex;
@@ -86,6 +159,23 @@ body {
     height: 3px;
     background: linear-gradient(90deg, var(--accent), #06b6d4);
 }
+
+/* (remaining CSS SAME as yours, no change) */
+
+@keyframes cardFadeIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.auth-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+   } right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), #06b6d4);
+
 
 .input-field {
     width: 100%;
