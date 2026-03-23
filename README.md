@@ -86,6 +86,6 @@ Total: ₹172.8
 
 ## 10. Author
 
-(a) Name:Kantamsetti Yamini Lakshmi
-(b) Role: Student
-(c) LinkedIn URL:https://www.linkedin.com/in/yamini-kantamsetti-6229b732a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app
+(a) Name:
+(b) Role: 
+(c) LinkedIn URL:
