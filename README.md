@@ -85,7 +85,7 @@ Total: ₹172.8
 * Cloud-based data storage
 
 ## 10. Author
-
-(a) Name:
-(b) Role: 
-(c) LinkedIn URL:
+Javvadi Ajay Kumar– UI/UX Developer
+Vasamsetti Anvith – Frontend Logic Developer
+Yallapu Abhiram – Data & Dashboard Manager
+Kantamsetti Yamini lakshmi – Testing & Documentation Lead
